@@ -1339,10 +1339,6 @@ void FrontierFinder::sampleViewpoints(Frontier &frontier) {
     }
 }
 
-int FrontierFinder::getFrontierClusterNum() {
-  return frontier_clusters_.size();
-}
-
 bool FrontierFinder::isFrontierCovered() {
   Vector3d update_min, update_max;
   edt_env_->sdf_map_->getUpdatedBox(update_min, update_max, false);

@@ -93,8 +93,7 @@ public:
 
   void searchFrontiers(Eigen::Vector3d cur_pos);
   void computeFrontiersToVisit(Eigen::Vector3d cur_pos);
-  void computeNormal(const vector<Vector3d> &point_cloud,
-                     vector<Vector3d> &normals, Vector3d center);
+
   void getFrontiers(vector<vector<Vector3d>> &clusters);
   void getFrontierDivision(vector<vector<Eigen::Vector3d>> &division);
   void getDormantFrontiers(vector<vector<Vector3d>> &clusters);
@@ -102,12 +101,7 @@ public:
   // Get viewpoint with highest coverage for each frontier
   void getTopViewpointsInfo(const Vector3d &cur_pos, vector<Vector3d> &points,
                             vector<double> &yaws, vector<Vector3d> &averages);
-  void getTop5ViewPoints(vector<vector<Eigen::Vector3d>> &clusters);
-  // Get several viewpoints for a subset of frontiers
-  void getViewpointsInfo(const Vector3d &cur_pos, const vector<int> &ids,
-                         const int &view_num, const double &max_decay,
-                         vector<vector<Vector3d>> &points,
-                         vector<vector<double>> &yaws);
+                            
   void updateFrontierCostMatrix();
   void clusterFrontiers(const Eigen::Vector3d &cur_pos, bool &neighbor);
   void getFullCostMatrix(const Vector3d &cur_pos, const Vector3d &cur_vel,
@@ -116,26 +110,34 @@ public:
                               const Vector3d cur_yaw,
                               const Vector3d &next_cluster_pos,
                               Eigen::MatrixXd &mat);
-  void getSingleCellCostMatrix(const Vector3d &cur_pos, const Vector3d &cur_vel,
-                               const Vector3d &cur_yaw,
-                               const vector<int> &ftr_ids,
-                               const Vector3d &next_grid_pos,
-                               Eigen::MatrixXd &mat);
   void getPathForTour(const Vector3d &pos, const vector<int> &tsp_ids,
                       vector<Vector3d> &path);
 
   void getCheckTour(const int cluster_id, vector<checkPoint> &check_tour);
-  void setNextFrontier(const int &id);
   bool isFrontierCovered();
-  int getFrontierClusterNum();
   void wrapYaw(double &yaw);
   void getClusterMatrix(const Vector3d &cur_pos, const Vector3d &cur_vel,
                         const Vector3d cur_yaw, Eigen::MatrixXd &cost_mat);
   void getClusterTour(const vector<int> indices, vector<Vector3d> &path);
   void getClusterCenter(vector<Vector3d> &centers);
+
   shared_ptr<PerceptionUtils> percep_utils_;
 
 private:
+  // Get several viewpoints for a subset of frontiers
+  void getViewpointsInfo(const Vector3d &cur_pos, const vector<int> &ids,
+                         const int &view_num, const double &max_decay,
+                         vector<vector<Vector3d>> &points,
+                         vector<vector<double>> &yaws);
+  void computeNormal(const vector<Vector3d> &point_cloud,
+                     vector<Vector3d> &normals, Vector3d center);
+  void getTop5ViewPoints(vector<vector<Eigen::Vector3d>> &clusters);
+  void getSingleCellCostMatrix(const Vector3d &cur_pos, const Vector3d &cur_vel,
+                               const Vector3d &cur_yaw,
+                               const vector<int> &ftr_ids,
+                               const Vector3d &next_grid_pos,
+                               Eigen::MatrixXd &mat);
+
   void splitLargeFrontiers(vector<Frontier> &frontiers);
   bool splitIn3D(const Frontier &frontier, vector<Frontier> &splits);
   bool splitHorizontally(const Frontier &frontier, vector<Frontier> &splits);
