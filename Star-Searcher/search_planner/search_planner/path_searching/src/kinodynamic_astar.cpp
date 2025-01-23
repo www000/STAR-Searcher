@@ -380,9 +380,6 @@ bool KinodynamicAstar::computeShotTraj(Eigen::VectorXd state1, Eigen::VectorXd s
       return false;
     }
 
-    // if (edt_environment_->evaluateCoarseEDT(coord, -1.0) <= margin_) {
-    //   return false;
-    // }
     if (edt_environment_->sdf_map_->getInflateOccupancy(coord) == 1) {
       return false;
     }

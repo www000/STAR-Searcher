@@ -19,10 +19,12 @@ class Mat;
 class RayCaster;
 
 namespace fast_planner {
+
 struct MapParam;
 struct MapData;
 class MapROS;
 class camlidFusion;
+
 class SDFMap {
 public:
   SDFMap();
@@ -53,8 +55,7 @@ public:
   bool isInBox(const Eigen::Vector3i &id);
   bool isInBox(const Eigen::Vector3d &pos);
   void boundBox(Eigen::Vector3d &low, Eigen::Vector3d &up);
-  double getObserverDist(const Eigen::Vector3d &pos);
-  double getObserverDist(const Eigen::Vector3i &id);
+
   int getOccupancy(const Eigen::Vector3d &pos);
   int getOccupancy(const Eigen::Vector3i &id);
   void setOccupied(const Eigen::Vector3d &pos, const int &occ = 1);
@@ -62,10 +63,7 @@ public:
   int getInflateOccupancy(const Eigen::Vector3i &id);
   double getDistance(const Eigen::Vector3d &pos);
   double getDistance(const Eigen::Vector3i &id);
-  void getDistanceAndGradient(const Eigen::Vector3d &pos, double &distance,
-                              Eigen::Vector3d &gradient);
-  void getDistanceAndGradient(const Eigen::Vector3i &idx, double &distance,
-                              Eigen::Vector3d &gradient);
+
   double getDistWithGrad(const Eigen::Vector3d &pos, Eigen::Vector3d &grad);
   void updateESDF3d();
   void resetBuffer();
@@ -81,6 +79,12 @@ public:
   double getBeliefDist();
 
 private:
+  void getDistanceAndGradient(const Eigen::Vector3d &pos, double &distance,
+                              Eigen::Vector3d &gradient);
+  void getDistanceAndGradient(const Eigen::Vector3i &idx, double &distance,
+                              Eigen::Vector3d &gradient);
+  double getObserverDist(const Eigen::Vector3d &pos);
+  double getObserverDist(const Eigen::Vector3i &id);
   void clearAndInflateLocalMap();
   void inflatePoint(const Eigen::Vector3i &pt, int step,
                     vector<Eigen::Vector3i> &pts);
@@ -322,5 +326,7 @@ inline void SDFMap::inflatePoint(const Eigen::Vector3i &pt, int step,
         pts[num++] = Eigen::Vector3i(pt(0) + x, pt(1) + y, pt(2) + z);
       }
 }
+
 } // namespace fast_planner
+
 #endif

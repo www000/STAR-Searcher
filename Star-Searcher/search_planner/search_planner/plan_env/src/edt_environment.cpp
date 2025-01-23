@@ -86,7 +86,7 @@ void EDTEnvironment::evaluateEDTWithGrad(const Eigen::Vector3d& pos, double time
   dist = sdf_map_->getDistWithGrad(pos, grad);
 }
 
-double EDTEnvironment::evaluateCoarseEDT(Eigen::Vector3d& pos, double time) {
+double EDTEnvironment::evaluateCoarseEDT(const Eigen::Vector3d& pos, double time) {
   double d1 = sdf_map_->getDistance(pos);
   if (time < 0.0) {
     return d1;
