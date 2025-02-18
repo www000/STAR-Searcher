@@ -7,7 +7,7 @@ SDFMap::SDFMap() {}
 
 SDFMap::~SDFMap() {}
 
-void SDFMap::initMap(ros::NodeHandle &nh) {
+void SDFMap::initMap() {
   mp_.reset(new MapParam);
   md_.reset(new MapData);
 
